@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A magical 1st Birthday and Christening invitation" />
+  <title id="site-title">A Magical Day</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       UNDERWATER CANVAS BACKGROUND
+  ============================================================ -->
+  <canvas id="underwater-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================================
+       ENVELOPE OPENING SCREEN
+  ============================================================ -->
+  <div id="envelope-screen" role="dialog" aria-label="Invitation envelope" aria-modal="true">
+
+    <div class="env-ambient" aria-hidden="true">
+      <div class="env-light-ray"></div>
+      <div class="env-light-ray"></div>
+      <div class="env-light-ray"></div>
+      <div class="env-light-ray"></div>
+      <div class="env-light-ray"></div>
+    </div>
+
+    <p class="env-title">✦ An Invitation Awaits ✦</p>
+
+    <div class="envelope-wrap" id="envelope"
+         role="button"
+         aria-label="Click to open your invitation"
+         tabindex="0">
+      <div class="envelope-body">
+        <div class="envelope-decoration" aria-hidden="true">
+          <span class="env-bubble" style="width:10px;height:10px;left:12%;bottom:20%;animation-duration:3.2s;animation-delay:0s"></span>
+          <span class="env-bubble" style="width:7px;height:7px;left:28%;bottom:15%;animation-duration:2.6s;animation-delay:0.5s"></span>
+          <span class="env-bubble" style="width:13px;height:13px;left:68%;bottom:25%;animation-duration:3.8s;animation-delay:1s"></span>
+          <span class="env-bubble" style="width:6px;height:6px;left:80%;bottom:18%;animation-duration:2.9s;animation-delay:0.3s"></span>
+          <span class="env-bubble" style="width:9px;height:9px;left:45%;bottom:10%;animation-duration:3.5s;animation-delay:1.4s"></span>
+          <span class="env-bubble" style="width:5px;height:5px;left:55%;bottom:22%;animation-duration:2.4s;animation-delay:0.8s"></span>
+        </div>
+        <div class="env-flap" aria-hidden="true"></div>
+        <div class="env-seal" aria-hidden="true">🐚</div>
+      </div>
+    </div>
+
+    <p class="env-instruction" aria-live="polite">✦ Tap the envelope to open ✦</p>
+  </div>
+
+  <!-- ============================================================
+       "YOU'RE INVITED" OVERLAY
+  ============================================================ -->
+  <div id="invited-overlay" aria-live="assertive" aria-atomic="true">
+    <div class="invited-glow" aria-hidden="true"></div>
+    <h1 class="invited-main">You're Invited</h1>
+    <p class="invited-sub">To a Magical Celebration ✨</p>
+  </div>
+
+  <!-- ============================================================
+       FLOATING MUSIC BUTTON
+  ============================================================ -->
+  <button id="music-btn" class="music-btn" aria-label="Toggle background music" title="Toggle music">
+    🎵
+  </button>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="main-nav" role="navigation" aria-label="Main navigation">
+    <span class="nav-logo" aria-hidden="true">✦ Magical Day ✦</span>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#section-home"       aria-label="Go to Home">Home</a></li>
+      <li><a href="#section-details"    aria-label="Go to Details">Details</a></li>
+      <li><a href="#section-attire"     aria-label="Go to Attire &amp; Gifts">Attire &amp; Gifts</a></li>
+      <li><a href="#section-godparents" aria-label="Go to Godparents">Ninong &amp; Ninang</a></li>
+      <li><a href="#section-celebrant"  aria-label="Go to Celebrant">Celebrant</a></li>
+      <li><a href="#section-gallery"    aria-label="Go to Gallery">Gallery</a></li>
+    </ul>
+
+    <button class="nav-hamburger"
+            id="nav-hamburger"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="nav-mobile-drawer">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-mobile-drawer"
+       id="nav-mobile-drawer"
+       role="navigation"
+       aria-label="Mobile navigation">
+    <a href="#section-home"       onclick="closeMobileNav()">🏠 Home</a>
+    <a href="#section-details"    onclick="closeMobileNav()">📅 Details</a>
+    <a href="#section-attire"     onclick="closeMobileNav()">👗 Attire &amp; Gifts</a>
+    <a href="#section-godparents" onclick="closeMobileNav()">💝 Ninong &amp; Ninang</a>
+    <a href="#section-celebrant"  onclick="closeMobileNav()">👶 Celebrant</a>
+    <a href="#section-gallery"    onclick="closeMobileNav()">📷 Gallery</a>
+  </div>
+  <div class="nav-overlay" id="nav-overlay" onclick="closeMobileNav()" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       MAIN APPLICATION
+  ============================================================ -->
+  <div id="app">
+
+    <!-- ===== HOME / HERO ===== -->
+    <section id="section-home" aria-label="Home">
+      <div class="hero-inner">
+
+        <!-- Text column -->
+        <div class="hero-text">
+          <p class="hero-intro anim-fade-up">✦ Join us as we celebrate ✦</p>
+          <h1 class="hero-name anim-fade-up anim-delay-1" id="hero-name">Baby Name</h1>
+          <p class="hero-event anim-fade-up anim-delay-2" id="hero-event">on her Christening &amp; 1st Birthday</p>
+          <div class="hero-date anim-fade-up anim-delay-3" id="hero-date">Date</div>
+          <p class="hero-welcome anim-fade-up anim-delay-4" id="hero-welcome">Welcome message.</p>
+          <a href="#section-details" class="pearl-btn anim-fade-up anim-delay-5" aria-label="View event details">
+            🐚 View Details
+          </a>
+        </div>
+
+        <!-- Photo column -->
+        <div class="hero-photo-wrap anim-scale-in anim-delay-2">
+          <div class="photo-frame" id="hero-photo-frame">
+            <div class="photo-frame-ring" aria-hidden="true"></div>
+            <div class="photo-frame-img">
+              <img id="hero-main-photo"
+                   src=""
+                   alt="Photo of the celebrant"
+                   loading="eager" />
+            </div>
+            <!-- Pearl & shell decorations -->
+            <div class="frame-deco frame-pearl" style="top:-18px;left:calc(50% - 6px)"   aria-hidden="true"></div>
+            <div class="frame-deco frame-pearl" style="top:8%;left:-22px"                 aria-hidden="true"></div>
+            <div class="frame-deco frame-pearl" style="top:8%;right:-22px"                aria-hidden="true"></div>
+            <div class="frame-deco frame-pearl" style="bottom:8%;left:-22px"              aria-hidden="true"></div>
+            <div class="frame-deco frame-pearl" style="bottom:8%;right:-22px"             aria-hidden="true"></div>
+            <div class="frame-deco frame-pearl" style="bottom:-18px;left:calc(50% - 6px)" aria-hidden="true"></div>
+            <div class="frame-deco frame-shell" style="position:absolute;top:-32px;left:20%"  aria-hidden="true">🌸</div>
+            <div class="frame-deco frame-shell" style="position:absolute;top:-32px;right:20%" aria-hidden="true">🐚</div>
+            <div class="frame-deco frame-shell" style="position:absolute;bottom:-30px;left:30%"  aria-hidden="true">✨</div>
+            <div class="frame-deco frame-shell" style="position:absolute;bottom:-30px;right:30%" aria-hidden="true">🌺</div>
+          </div>
+
+          <!-- Character decorations — hidden until images/characters/ are populated -->
+          <div class="char-deco" id="char-ariel"
+               style="position:absolute;bottom:0;left:-60px;width:90px"
+               aria-hidden="true">
+            <img src="" alt="" loading="lazy" />
+          </div>
+          <div class="char-deco" id="char-flounder"
+               style="position:absolute;top:10%;right:-50px;width:65px"
+               aria-hidden="true">
+            <img src="" alt="" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== EVENT DETAILS ===== -->
+    <section id="section-details" aria-label="Event Details">
+      <div class="section-inner">
+
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="section-tag anim-fade-up">✦ Save the Date ✦</span>
+          <h2 class="section-title anim-fade-up anim-delay-1">The Magical Day</h2>
+          <p class="section-subtitle anim-fade-up anim-delay-2">Mark your calendars for this unforgettable celebration</p>
+          <div class="section-divider anim-fade-in anim-delay-3"><span>🐚</span></div>
+        </div>
+
+        <!-- Countdown -->
+        <div id="countdown-wrap" class="countdown-wrap anim-fade-up"
+             aria-label="Countdown to the event" role="timer">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-days">00</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-hours">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-minutes">00</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-seconds">00</span>
+            <span class="countdown-label">Seconds</span>
+          </div>
+        </div>
+        <p id="countdown-message" role="status">✨ Today is the magical day! ✨</p>
+
+        <!-- Detail Cards -->
+        <div class="detail-cards">
+
+          <!-- Baptism -->
+          <div class="detail-card anim-slide-left anim-delay-1"
+               id="baptism-card"
+               role="button" tabindex="0"
+               aria-expanded="false"
+               aria-label="Baptism details">
+            <span class="detail-card-icon" aria-hidden="true">⛪</span>
+            <p class="detail-card-type">Holy Baptism</p>
+            <h3 class="detail-card-title" id="church-name">Church Name</h3>
+            <div class="detail-card-info">
+              <div class="detail-info-row">
+                <span class="detail-info-icon" aria-hidden="true">📅</span>
+                <span class="detail-info-text">
+                  <strong>Date:</strong> <span id="baptism-date">Date</span>
+                </span>
+              </div>
+              <div class="detail-info-row">
+                <span class="detail-info-icon" aria-hidden="true">🕐</span>
+                <span class="detail-info-text">
+                  <strong>Time:</strong> <span id="baptism-time">Time</span>
+                </span>
+              </div>
+              <div class="detail-info-row">
+                <span class="detail-info-icon" aria-hidden="true">📍</span>
+                <span class="detail-info-text" id="church-address">Address</span>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;">
+              <a id="church-map-btn"
+                 href="#"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="pearl-btn"
+                 aria-label="View church location on Google Maps">
+                🗺️ View Church Location
+              </a>
+            </div>
+          </div>
+
+          <!-- Reception -->
+          <div class="detail-card anim-slide-right anim-delay-2"
+               id="reception-card"
+               role="button" tabindex="0"
+               aria-expanded="false"
+               aria-label="Reception details">
+            <span class="detail-card-icon" aria-hidden="true">🎉</span>
+            <p class="detail-card-type">Celebration Reception</p>
+            <h3 class="detail-card-title" id="reception-name">Reception Venue</h3>
+            <div class="detail-card-info">
+              <div class="detail-info-row">
+                <span class="detail-info-icon" aria-hidden="true">📍</span>
+                <span class="detail-info-text" id="reception-address">Address</span>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;">
+              <a id="reception-map-btn"
+                 href="#"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="pearl-btn"
+                 aria-label="View reception location on Google Maps">
+                🗺️ View Reception Location
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sebastian character deco -->
+        <div class="char-deco"
+             id="char-sebastian"
+             style="position:absolute;bottom:20px;right:30px;width:80px;opacity:.7"
+             aria-hidden="true">
+          <img src="" alt="" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== ATTIRE & GIFTS ===== -->
+    <section id="section-attire" aria-label="Attire and Gift Guide">
+      <div class="section-inner">
+
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="section-tag anim-fade-up">✦ Dress the Part ✦</span>
+          <h2 class="section-title anim-fade-up anim-delay-1">Dress Like a Mermaid's Dream</h2>
+          <p class="section-subtitle anim-fade-up anim-delay-2">Come dressed to make waves</p>
+          <div class="section-divider anim-fade-in anim-delay-3"><span>🌺</span></div>
+        </div>
+
+        <!-- Attire cards — populated by JS -->
+        <div class="attire-grid" id="attire-grid"></div>
+
+        <div style="text-align:center; margin-bottom:2rem; margin-top:1rem;">
+          <span class="section-tag anim-fade-up">✦ A Little Something ✦</span>
+          <h2 class="section-title anim-fade-up anim-delay-1" style="font-size:clamp(2rem,5vw,3rem)">Gift Guide</h2>
+          <p class="section-subtitle anim-fade-up anim-delay-2">
+            Your presence is the greatest gift, but if you wish to bring one&hellip;
+          </p>
+        </div>
+
+        <!-- Gift cards — populated by JS -->
+        <div class="gift-grid" id="gift-grid"></div>
+
+      </div>
+    </section>
+
+    <!-- ===== GODPARENTS ===== -->
+    <section id="section-godparents" aria-label="Ninong and Ninang">
+      <div class="section-inner">
+
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="section-tag anim-fade-up">✦ With Blessings From ✦</span>
+          <h2 class="section-title anim-fade-up anim-delay-1">Our Special Godparents</h2>
+          <p class="section-subtitle anim-fade-up anim-delay-2">Those chosen to guide and love our little one</p>
+          <div class="section-divider anim-fade-in anim-delay-3"><span>💕</span></div>
+        </div>
+
+        <div class="godparents-grid">
+          <div class="godparents-group ninongs anim-slide-left">
+            <h3>Ninongs</h3>
+            <div class="gp-list" id="ninongs-list" role="list" aria-label="List of Ninongs"></div>
+          </div>
+          <div class="godparents-group ninangs anim-slide-right">
+            <h3>Ninangs</h3>
+            <div class="gp-list" id="ninangs-list" role="list" aria-label="List of Ninangs"></div>
+          </div>
+        </div>
+
+        <!-- Eric character deco -->
+        <div class="char-deco"
+             id="char-eric"
+             style="position:absolute;bottom:10px;left:20px;width:75px;opacity:.65"
+             aria-hidden="true">
+          <img src="" alt="" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== CELEBRANT ===== -->
+    <section id="section-celebrant" aria-label="About the Celebrant">
+      <div class="section-inner">
+
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="section-tag anim-fade-up">✦ The Star of the Day ✦</span>
+          <h2 class="section-title anim-fade-up anim-delay-1">Meet Our Little Mermaid</h2>
+          <div class="section-divider anim-fade-in anim-delay-2"><span>🌸</span></div>
+        </div>
+
+        <div class="celebrant-inner">
+
+          <!-- Photo -->
+          <div class="celebrant-photo-wrap anim-scale-in">
+            <div class="celebrant-frame" id="celebrant-frame">
+              <img id="celebrant-photo" src="" alt="Photo of the celebrant" loading="lazy" />
+            </div>
+            <!-- Triton character deco -->
+            <div class="char-deco"
+                 id="char-triton"
+                 style="position:absolute;bottom:-10px;right:-20px;width:85px;opacity:.7"
+                 aria-hidden="true">
+              <img src="" alt="" loading="lazy" />
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="celebrant-info anim-slide-right">
+            <p class="celebrant-name-label">Our Little Princess</p>
+            <h2 class="celebrant-full-name" id="celebrant-name">Baby Name</h2>
+            <p class="celebrant-nickname"   id="celebrant-nickname">&ldquo;Nickname&rdquo;</p>
+            <div class="celebrant-bday"     id="celebrant-bday">Birthday</div>
+            <p class="celebrant-desc"       id="celebrant-desc">Description here.</p>
+            <div style="margin-top:2rem; text-align:center;">
+              <span style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--lavender);">
+                With all our love,
+              </span><br>
+              <span id="parents-footer-inline"
+                    style="font-family:'Montserrat',sans-serif; font-size:.85rem;
+                           color:var(--pink); font-weight:500;
+                           letter-spacing:.1em; text-transform:uppercase;">
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section id="section-gallery" aria-label="12 Months Gallery">
+      <div class="section-inner">
+
+        <div style="text-align:center; margin-bottom:3rem;">
+          <span class="section-tag anim-fade-up">✦ Our Journey ✦</span>
+          <h2 class="section-title anim-fade-up anim-delay-1">12 Months of Magic</h2>
+          <p class="section-subtitle anim-fade-up anim-delay-2">A year full of wonder, love, and precious moments</p>
+          <div class="section-divider anim-fade-in anim-delay-3"><span>🐠</span></div>
+        </div>
+
+        <!-- Carousel -->
+        <div class="gallery-carousel anim-fade-up" aria-label="Monthly photo gallery">
+          <div class="gallery-track" id="gallery-track" role="list"></div>
+        </div>
+        <div class="gallery-controls" aria-label="Gallery navigation">
+          <button class="gallery-btn" id="gallery-prev" aria-label="Previous photos">&#8592;</button>
+          <div class="gallery-dots" id="gallery-dots" role="tablist" aria-label="Gallery pages"></div>
+          <button class="gallery-btn" id="gallery-next" aria-label="Next photos">&#8594;</button>
+        </div>
+
+        <!-- Memories -->
+        <div style="text-align:center; margin-top:4rem; margin-bottom:1rem;">
+          <span class="section-tag anim-fade-up">✦ Precious Moments ✦</span>
+          <h3 class="section-title anim-fade-up anim-delay-1"
+              style="font-size:clamp(2rem,5vw,3rem)">Underwater Treasures</h3>
+        </div>
+        <div class="memories-grid" id="memories-grid" role="list"></div>
+
+        <!-- Ursula character deco -->
+        <div class="char-deco"
+             id="char-ursula"
+             style="position:absolute;bottom:0;right:10px;width:95px;opacity:.55"
+             aria-hidden="true">
+          <img src="" alt="" loading="lazy" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer role="contentinfo">
+      <div class="footer-inner">
+        <p class="footer-thank anim-fade-up">
+          &ldquo;Thank you for being part of our little one's special day.
+          Your love and presence mean the world to us.&rdquo;
+        </p>
+        <div class="footer-divider anim-fade-in"></div>
+        <div class="footer-name anim-fade-up" id="footer-name">Baby Name</div>
+        <p class="footer-love anim-fade-up anim-delay-1">With love,</p>
+        <p class="footer-parents anim-fade-up anim-delay-2" id="footer-parents">Parents</p>
+        <div class="footer-divider anim-fade-in anim-delay-3"></div>
+        <p class="footer-copy">A Magical Mermaid Celebration ✦ Made with Love</p>
+      </div>
+    </footer>
+
+  </div><!-- /#app -->
+
+  <!-- ============================================================
+       LIGHTBOX
+  ============================================================ -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">&#10005;</button>
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="" />
+      </div>
+      <div class="lightbox-nav" aria-hidden="true">
+        <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous photo">&#8592;</button>
+        <button class="lightbox-next" id="lightbox-next" aria-label="Next photo">&#8594;</button>
+      </div>
+      <p id="lightbox-month"></p>
+      <p id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Background audio -->
+  <audio id="bg-music" loop preload="none" aria-hidden="true"></audio>
+
+  <!-- ============================================================
+       MEMORY LIGHTBOX (Precious Moments popup)
+  ============================================================ -->
+  <div id="memory-lightbox" role="dialog" aria-modal="true" aria-label="Precious moment viewer">
+    <div class="mlb-inner">
+      <button class="mlb-close" id="mlb-close" aria-label="Close">&#10005;</button>
+      <div class="mlb-img-wrap">
+        <img id="mlb-img" src="" alt="" />
+        <div class="mlb-img-placeholder" id="mlb-placeholder" aria-hidden="true">
+          <span id="mlb-fallback-icon"></span>
+        </div>
+      </div>
+      <div class="mlb-body">
+        <h3 class="mlb-title" id="mlb-title"></h3>
+        <p  class="mlb-desc"  id="mlb-desc"></p>
+      </div>
+      <!-- prev / next -->
+      <button class="mlb-prev" id="mlb-prev" aria-label="Previous moment">&#8592;</button>
+      <button class="mlb-next" id="mlb-next" aria-label="Next moment">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
