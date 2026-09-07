@@ -84,7 +84,7 @@ const invitationData = {
       { name: "Chabelita Sanchez" },
       { name: "Krystal Mia Dacasin" },
       { name: "Melody Palaganas" },
-      { name: "Ellyza Mae Idos" },
+      { name: "Ellyza Grace Idos" },
       { name: "April Joy Cruz" },
       { name: "Rochelle Peralta" },
       { name: "Vea Lykha Rosario" },
