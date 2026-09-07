@@ -67,28 +67,28 @@ const invitationData = {
 
   godparents: {
     ninongs: [
+      { name: "Megan Jude Calimlim" },
       { name: "Marvin Capinpin" },
-      { name: "Ronnie Gabat" },
-      { name: "Allan Untalan" },
-      { name: "Jerald Castro" },
-      { name: "Nelson Salinas" },
-      { name: "Peter George Untalan" },
       { name: "Ahron Wardy Palaganas" },
-      { name: "Jerby Salinas" },
+      { name: "Allan Untalan" },
+      { name: "Ronnie Gabat" },
+      { name: "Nelson Salinas" },
       { name: "Marc Lennon Ferrer" },
-      { name: "Reymart Peralta" }
+      { name: "Peter George Untalan" },
+      { name: "Reymart Peralta" },
+      { name: "Jerby Salinas" }
     ],
     ninangs: [
       { name: "Vanessa Bautista" },
-      { name: "Chabelita Sanchez" },
-      { name: "Rochelle Peralta" },
-      { name: "Roda Palaganas" },
       { name: "Janica Criselle Dacasin" },
+      { name: "Chabelita Sanchez" },
       { name: "Krystal Mia Dacasin" },
       { name: "Melody Palaganas" },
-      { name: "April Joy Cruz" },
       { name: "Ellyza Mae Idos" },
-      { name: "Vea Lykha Rosario" }
+      { name: "April Joy Cruz" },
+      { name: "Rochelle Peralta" },
+      { name: "Vea Lykha Rosario" },
+      { name: "Roda Palaganas" }
     ]
   },
 
